@@ -1,0 +1,250 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <title>Dashboard</title>
+</head>
+<body>
+
+    <div class="container-fluid">
+        <!--  4 Cards having information -->
+            <script id="card" type="text/x-handlebars-template">
+                <div class="row mx-auto mt-5">
+                    <h3 class="display-5 text-center text-uppercase">Order Details</h3>
+                    <!--            Script for Card 2-->
+                    <div class="col-sm-12 col-md-3">
+                        <div class="card text-white bg-primary">
+                            <div class="card-body">
+                            <p class="card-text">Today's Order: {{todayorders}}</p>
+                            <p class="card-text">Current Week Order: {{currentweeksorder}}</p>
+                        </div>
+                    </div>
+                </div>
+
+            <!--            Script for Card 2-->
+                    <div class="col-sm-12 col-md-3">
+                        <div class="card text-white bg-primary">
+                            <div class="card-body">
+                            <p class="card-text">Today's Order Amount: {{todaysamount}}</p>
+                            <p class="card-text">Current Week Amount: {{currentweekamount}}</p>
+                        </div>
+                    </div>
+                </div>
+
+
+            <!--            Script for Card 3-->
+                    <div class="col-sm-12 col-md-3">
+                        <div class="card text-white bg-primary">
+                            <div class="card-body">
+                            <p class="card-text">MTD Order: {{mtdorder}}</p>
+                            <p class="card-text">Last Month Order: {{lastmonthorder}}</p>
+                        </div>
+                    </div>
+                </div>
+
+
+            <!--            Script for Card 4-->
+                    <div class="col-sm-12 col-md-3">
+                        <div class="card text-white bg-primary">
+                            <div class="card-body">
+                            <p class="card-text">MTD Order Amount: {{mtdamount}}</p>
+                            <p class="card-text">Last Month Amount: {{lastmonthamount}}</p>
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </script>
+
+        <!--  Line Chart using ChartJS  -->
+        <script id="lineChart" type="text/x-handlebars-template">
+            <div class="row mt-5">
+                <h3 class="text-center display-5 text-uppercase">Daily Order Trend</h3>
+
+                <div class="col-sm-12 col-md-2"></div>
+
+                <div class="col-sm-12 col-md-8">
+                    <canvas id="myChart" width="300" height="100"></canvas>
+                </div>
+            </div>
+            </div>
+
+        </script>
+
+        <!-- Data Table for Top 5 Orders -->
+        <script id="topfivedatatable" type="text/x-handlebars-template">
+            <div class="row mt-5">
+                <h3 class="text-center display-5 text-uppercase">Top 5 Orders</h3>
+                <div class="col-sm-12 col-md-2"></div>
+                <div class="col-sm-12 col-md-8">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th scope="col">Order No</th>
+                            <th scope="col">Total Amount</th>
+                            <th scope="col">Total Quantity</th>
+                            <th scope="col">Username</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {{#each this}}
+                        <tr>
+                            <td>{{order_no}}</td>
+                            <td>{{total_amount}}</td>
+                            <td>{{total_qty}}</td>
+                            <td>{{user_name}}</td>
+                        </tr>
+                        {{/each}}
+                        </tbody>
+                    </table>
+                </div>
+        </script>
+        <!-- Data Table for Bottom 5 Orders -->
+        <script id="bottomfivetable" type="text/x-handlebars-template">
+            <div class="row mt-5">
+                    <h3 class="text-center display-5 text-uppercase">Bottom 5 Orders</h3>
+                <div class="col-sm-12 col-md-2 mt-5"></div>
+                <div class="col-sm-12 col-md-8">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th scope="col">Order No</th>
+                            <th scope="col">Total Amount</th>
+                            <th scope="col">Total Quantity</th>
+                            <th scope="col">Username</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {{#each this}}
+                            <tr>
+                                <td>{{order_no}}</td>
+                                <td>{{total_amount}}</td>
+                                <td>{{total_qty}}</td>
+                                <td>{{user_name}}</td>
+                            </tr>
+                        {{/each}}
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            </div>
+        </script>
+
+<!--        User Table for top 5-->
+        <script id="usertopfive" type="text/x-handlebars-template">
+            <div class="row mt-5">
+                    <h3 class="text-center display-5 text-uppercase">Top 5 Users</h3>
+                <div class="col-sm-12 col-md-2"></div>
+                <div class="col-sm-12 col-md-8">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th scope="col">Username</th>
+                            <th scope="col">Total Amount</th>
+                            <th scope="col">Total Quantity</th>
+                            <th scope="col">City</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {{#each this}}
+                            <tr>
+                                <td>{{user_name}}</td>
+                                <td>{{total_amount}}</td>
+                                <td>{{total_qty}}</td>
+                                <td>{{city}}</td>
+                            </tr>
+                        {{/each}}
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </script>
+
+
+        <!--        User Table for bottom 5-->
+        <script id="userbottomfive" type="text/x-handlebars-template">
+            <div class="row mt-5">
+                    <h3 class="text-center display-5 text-uppercase">Bottom 5 Users</h3>
+                <div class="col-sm-12 col-md-2"></div>
+                <div class="col-sm-12 col-md-8">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th scope="col">Username</th>
+                            <th scope="col">Total Amount</th>
+                            <th scope="col">Total Quantity</th>
+                            <th scope="col">City</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {{#each this}}
+                            <tr>
+                                <td>{{user_name}}</td>
+                                <td>{{total_amount}}</td>
+                                <td>{{total_qty}}</td>
+                                <td>{{city}}</td>
+                            </tr>
+                        {{/each}}
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </script>
+
+        <!--        Detailed Order Report-->
+        <script id="ordersdetail" type="text/x-handlebars-template">
+            <div class="row mt-5">
+                    <h3 class="text-center display-5 text-uppercase">Detail Order Report</h3>
+                <div class="col-sm-12 col-md-2"></div>
+                <div class="col-sm-12 col-md-8">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th scope="col">Username</th>
+                            <th scope="col">Order No</th>
+                            <th scope="col">Order Date</th>
+                            <th scope="col">Status</th>
+                            <th scope="col">Total Amount</th>
+                            <th scope="col">Total Qty</th>
+                            <th scope="col">Total Product Count</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {{#each this}}
+                        <tr>
+                            <td>{{user_name}}</td>
+                            <td>{{order_no}}</td>
+                            <td>{{order_date}}</td>
+                            <td>{{status}}</td>
+                            <td>{{total_amount}}</td>
+                            <td>{{total_qty}}</td>
+                            <td>{{totalproducts}}</td>
+                        </tr>
+                        {{/each}}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </script>
+
+    </div>
+
+
+    <!--    Handlebar CDN-->
+    <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
+    <!--    jQuery CDN-->
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <!--    ChartJS CDN-->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+    <!--    Local JS file-->
+    <script src="main.js"></script>
+</body>
+</html>
